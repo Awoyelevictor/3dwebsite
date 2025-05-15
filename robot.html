@@ -4,11 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive 3D WebPage</title>
-    <script
-      <script
-      type="module"
-      src="https://unpkg.com/@splinetool/viewer@1.9.89/build/spline-viewer.js"
-    ></script>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.93/build/spline-viewer.js"></script>
     <style>
       * {
         margin: 0;
@@ -16,8 +12,7 @@
         box-sizing: border-box;
       }
 
-      body,
-      html {
+      body, html {
         height: 100%;
         overflow: hidden;
         font-family: "Black Ops One", system-ui;
@@ -30,7 +25,6 @@
         flex-direction: column;
       }
 
-      /* 3D background */
       .background {
         position: absolute;
         top: 0;
@@ -38,12 +32,8 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        object-fit: cover;
-        /* transform: scale(1.5); */
-        bottom: -50px;
       }
 
-      /* Navbar */
       .navbar {
         display: flex;
         justify-content: space-around;
@@ -62,7 +52,7 @@
 
       .logo {
         font-size: 3rem;
-        background: linear-gradient(45deg, #000dff, #ff00e6, #ff7700);
+        background: white;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
       }
@@ -74,17 +64,18 @@
 
       .menu li:hover {
         transform: scale(1.2);
-        background: linear-gradient(45deg, #000dff, #ff00e6, #ff7700);
+        background: white;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        box-shadow: #fff;
       }
 
       .btn1 {
-        color: white;
+        color: #000;
         padding: 10px 40px;
         border-radius: 18px;
         border: none;
-        background: linear-gradient(45deg, #000dff, #ff00e6, #ff7700);
+        background: white;
         transition: 0.4s;
       }
 
@@ -92,7 +83,6 @@
         transform: scale(1.2);
       }
 
-      /* Main content */
       .mainarea {
         display: flex;
         align-items: center;
@@ -103,9 +93,9 @@
       }
 
       .text1 {
-        margin-top: 30px;
+        margin-top: 70px;
         font-size: 5rem;
-        background: linear-gradient(45deg, #000dff, #ff00e6, #ff7700);
+        background: linear-gradient(to left, black, white);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-align: center;
@@ -125,6 +115,7 @@
           transform: translateY(0);
         }
       }
+
       spline-viewer::part(branding) {
         display: none;
       }
@@ -132,21 +123,13 @@
   </head>
 
   <body>
-    <!-- Spline Viewer -->
-    <script
-      type="module"
-      src="https://unpkg.com/@splinetool/viewer@1.9.89/build/spline-viewer.js"
-    ></script>
-
-    <spline-viewer
-      class="background"
+    <!-- 3D Spline Background -->
+    <spline-viewer 
+      class="background" 
       id="splineViewer"
-      url=" https://prod.spline.design/J2JBJALIgYkhpIQo/scene.splinecode"
-      width="300px"
-      height="150px"
-      style="border: 1px"
-    ></spline-viewer>
-    <!-- TBHPO4E614pdOb-Q -->
+      url="https://prod.spline.design/PSAsA15IGvZuiyYa/scene.splinecode">
+    </spline-viewer>
+
     <!-- Navbar -->
     <nav class="navbar">
       <h1 class="logo">Phoenix Tech</h1>
@@ -154,11 +137,7 @@
         <li>Home</li>
         <li>App</li>
         <li>Work</li>
-        <li>
-          <a href="robot.html" style="text-decoration: none; color: white"
-            >chat gpt</a
-          >
-        </li>
+        <li><a href="chatgpt.html" style="text-decoration: none; color: white;">chat gpt</a></li>
       </ul>
       <button class="btn1">Connect</button>
     </nav>
@@ -167,16 +146,12 @@
     <main class="mainarea">
       <h1 class="text1">Subscribe to Phoenix Tech</h1>
     </main>
-    <br /><br /><br /><br />
 
+    <!-- JS to handle Spline loading -->
     <script>
-      // Access the viewer
-      const viewer = document.querySelector("#splineViewer");
-
-      // Event listener to track loading of Spline scene
-      viewer.addEventListener("load", () => {
-        // The viewer is interactive right out of the box!
-        // You can click and drag to rotate the scene, scroll to zoom in and out.
+      const viewer = document.querySelector('#splineViewer');
+      viewer.addEventListener('load', () => {
+        console.log('Spline scene loaded!');
       });
     </script>
   </body>
