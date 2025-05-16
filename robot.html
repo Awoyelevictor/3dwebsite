@@ -1,155 +1,224 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Phoenix Tech - Portfolio</title>
-    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.93/build/spline-viewer.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phoenix Tech - Portfolio</title>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.93/build/spline-viewer.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
 
-      body, html {
-        height: 100%;
-        overflow: hidden;
-        font-family: "Black Ops One", system-ui;
-        background: black;
-        color: white;
-      }
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    body, html {
+      font-family: "Black Ops One", system-ui;
+      height: 100%;
+      background: black;
+      color: white;
+      overflow-x: hidden;
+    }
 
-      .background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-      }
+    spline-viewer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+    }
 
-      .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 40px;
-        height: 90px;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(10px);
-        z-index: 10;
-        position: relative;
-      }
+    spline-viewer::part(branding) {
+      display: none;
+    }
 
-      .logo {
-        font-size: 2.8rem;
-        background: linear-gradient(90deg, #fff, #888);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
+    section {
+      padding: 100px 20px;
+      backdrop-filter: blur(10px);
+    }
 
-      .menu {
-        display: flex;
-        list-style: none;
-        gap: 40px;
-      }
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(0, 0, 0, 0.6);
+    }
 
-      .menu li a, .menu li {
-        font-size: 1rem;
-        color: white;
-        text-decoration: none;
-        transition: 0.3s;
-        position: relative;
-      }
+    .logo {
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #fff, #999);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-      .menu li:hover {
-        color: #f9532d;
-        transform: scale(1.1);
-      }
+    .menu {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
 
-      .btn1 {
-        background: #f9532d;
-        color: white;
-        border: none;
-        border-radius: 18px;
-        padding: 10px 30px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: 0.3s;
-      }
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: 0.3s;
+    }
 
-      .btn1:hover {
-        transform: scale(1.1);
-        background: #ff6b3d;
-      }
+    .menu a:hover {
+      color: #f9532d;
+    }
 
-      .mainarea {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex: 1;
-        z-index: 10;
-        position: relative;
-        text-align: center;
-        padding: 50px;
-      }
+    .btn1 {
+      background: #f9532d;
+      border: none;
+      border-radius: 18px;
+      padding: 10px 25px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
 
-      .text1 {
-        font-size: 4rem;
-        background: linear-gradient(to right, white, #f9532d);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: fadeInUp 2s ease-out forwards;
-        opacity: 0;
-      }
+    .btn1:hover {
+      background: #ff6b3d;
+    }
 
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(50px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
+    .mainarea {
+      text-align: center;
+      margin-top: 100px;
+    }
 
-      spline-viewer::part(branding) {
-        display: none;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- 3D Spline Background -->
-    <spline-viewer 
-      class="background" 
-      id="splineViewer"
-      url="https://prod.spline.design/PSAsA15IGvZuiyYa/scene.splinecode">
-    </spline-viewer>
+    .mainarea h1 {
+      font-size: 4rem;
+      background: linear-gradient(to right, white, #f9532d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-    <!-- Navbar -->
-    <nav class="navbar">
-      <h1 class="logo">Phoenix Tech</h1>
-      <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">App</a></li>
-        <li><a href="#">Work</a></li>
-        <li><a href="chatgpt.html">Chat GPT</a></li>
+    .section-title {
+      font-size: 2.5rem;
+      color: #f9532d;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .about, .skills, .projects, .contact {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .skills ul, .projects ul {
+      list-style: none;
+      padding-left: 0;
+      text-align: center;
+    }
+
+    .skills li, .projects li {
+      background: rgba(255,255,255,0.05);
+      margin: 10px auto;
+      padding: 10px 20px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: #ccc;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 20px;
+      background: rgba(0,0,0,0.6);
+      color: #888;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Background -->
+  <spline-viewer url="https://prod.spline.design/PSAsA15IGvZuiyYa/scene.splinecode"></spline-viewer>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <h1 class="logo">Phoenix Tech</h1>
+    <ul class="menu">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="btn1">Connect</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="mainarea">
+    <h1>Welcome to Phoenix Tech</h1>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="about">
+      <h2 class="section-title">About Me</h2>
+      <p>I’m a tech enthusiast passionate about AI, 3D experiences, and futuristic UI. I create immersive digital products that feel alive and responsive. This page is powered by a 3D Nexus robot background and cutting-edge design.</p>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills">
+    <div class="skills">
+      <h2 class="section-title">What I Can Do</h2>
+      <ul>
+        <li>Web Development (HTML, CSS, JavaScript)</li>
+        <li>Python Scripting</li>
+        <li>3D Experiences with Spline</li>
+        <li>AI & Chatbot Integration</li>
+        <li>Automation Bots</li>
       </ul>
-      <button class="btn1">Connect</button>
-    </nav>
+    </div>
+  </section>
 
-    <!-- Main Area -->
-    <main class="mainarea">
-      <h1 class="text1">Subscribe to Phoenix Tech</h1>
-    </main>
+  <!-- Projects -->
+  <section id="projects">
+    <div class="projects">
+      <h2 class="section-title">Projects</h2>
+      <ul>
+        <li><strong>ChatGPT Clone:</strong> Voice + Text chatbot with neon theme</li>
+        <li><strong>Free Fire Tournament Form:</strong> SheetDB + stylish frontend</li>
+        <li><strong>Digital Product Store:</strong> Paystack-integrated code store</li>
+      </ul>
+    </div>
+  </section>
 
-    <script>
-      const viewer = document.querySelector('#splineViewer');
-      viewer.addEventListener('load', () => {
-        console.log('Spline loaded!');
-      });
-    </script>
-  </body>
+  <!-- Contact -->
+  <section id="contact">
+    <div class="contact">
+      <h2 class="section-title">Contact Me</h2>
+      <form>
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <textarea rows="5" placeholder="Your Message" required></textarea>
+        <button class="btn1" type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Phoenix Tech. All rights reserved.</p>
+  </footer>
+</body>
 </html>
