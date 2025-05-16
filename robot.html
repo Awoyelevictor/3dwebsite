@@ -2,29 +2,23 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Interactive 3D WebPage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phoenix Tech - Portfolio</title>
     <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.93/build/spline-viewer.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
-
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
 
-      html, body {
+      body, html {
         height: 100%;
         overflow: hidden;
-        font-family: 'Black Ops One', system-ui, sans-serif;
-        background: #000;
+        font-family: "Black Ops One", system-ui;
+        background: black;
         color: white;
-      }
-
-      body {
-        display: flex;
-        flex-direction: column;
       }
 
       .background {
@@ -33,136 +27,89 @@
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: -2;
-      }
-
-      /* Dark overlay for better readability */
-      .background::after {
-        content: '';
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        pointer-events: none;
         z-index: -1;
       }
 
       .navbar {
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
-        height: 100px;
-        position: relative;
+        padding: 0 40px;
+        height: 90px;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(10px);
         z-index: 10;
-        background: transparent;
-        animation: slideDown 1s ease forwards;
-      }
-
-      @keyframes slideDown {
-        from {
-          opacity: 0;
-          transform: translateY(-30px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
+        position: relative;
       }
 
       .logo {
-        font-size: 3rem;
-        background: linear-gradient(90deg, #f9532d, #ff6f00);
+        font-size: 2.8rem;
+        background: linear-gradient(90deg, #fff, #888);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        cursor: default;
-        animation: fadeIn 1.5s ease forwards 0.5s;
-        opacity: 0;
       }
 
       .menu {
         display: flex;
-        align-items: center;
         list-style: none;
-        gap: 50px;
+        gap: 40px;
       }
 
-      .menu li {
-        font-size: 1.2rem;
-        cursor: pointer;
-        transition: transform 0.3s ease, color 0.3s ease;
+      .menu li a, .menu li {
+        font-size: 1rem;
+        color: white;
+        text-decoration: none;
+        transition: 0.3s;
         position: relative;
-        opacity: 0;
-        animation: fadeIn 1.5s ease forwards;
       }
-      /* Stagger animation delay */
-      .menu li:nth-child(1) { animation-delay: 0.7s; }
-      .menu li:nth-child(2) { animation-delay: 0.9s; }
-      .menu li:nth-child(3) { animation-delay: 1.1s; }
-      .menu li:nth-child(4) { animation-delay: 1.3s; }
 
       .menu li:hover {
         color: #f9532d;
-        transform: scale(1.3);
-      }
-
-      .menu li a {
-        text-decoration: none;
-        color: inherit;
-      }
-
-      .btn1 {
-        color: #000;
-        background: #f9532d;
-        padding: 12px 40px;
-        border-radius: 22px;
-        border: none;
-        font-weight: 700;
-        cursor: pointer;
-        transition: transform 0.3s ease, background 0.3s ease;
-        animation: fadeIn 1.5s ease forwards 1.5s;
-        opacity: 0;
-      }
-
-      .btn1:hover {
-        background: #ff6f00;
         transform: scale(1.1);
       }
 
-      @keyframes fadeIn {
-        to {
-          opacity: 1;
-        }
+      .btn1 {
+        background: #f9532d;
+        color: white;
+        border: none;
+        border-radius: 18px;
+        padding: 10px 30px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+
+      .btn1:hover {
+        transform: scale(1.1);
+        background: #ff6b3d;
       }
 
       .mainarea {
-        flex: 1;
         display: flex;
         align-items: center;
         justify-content: center;
+        flex: 1;
+        z-index: 10;
         position: relative;
-        z-index: 20;
-        padding: 0 20px;
+        text-align: center;
+        padding: 50px;
       }
 
       .text1 {
-        margin-top: 70px;
-        font-size: 5rem;
-        background: linear-gradient(90deg, #f9532d, #ff6f00);
+        font-size: 4rem;
+        background: linear-gradient(to right, white, #f9532d);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        text-align: center;
-        display: inline-block;
-        transform: translateY(20px);
-        animation: textAnimation 1.5s ease-out forwards 2s;
+        animation: fadeInUp 2s ease-out forwards;
         opacity: 0;
       }
 
-      @keyframes textAnimation {
-        0% {
+      @keyframes fadeInUp {
+        from {
           opacity: 0;
           transform: translateY(50px);
         }
-        100% {
+        to {
           opacity: 1;
           transform: translateY(0);
         }
@@ -171,187 +118,37 @@
       spline-viewer::part(branding) {
         display: none;
       }
-
-      /* Modal styles */
-      .modal {
-        display: none;
-        position: fixed;
-        top: 0; left: 0;
-        width: 100vw; height: 100vh;
-        background: rgba(0,0,0,0.8);
-        justify-content: center;
-        align-items: center;
-        z-index: 50;
-      }
-
-      .modal.active {
-        display: flex;
-      }
-
-      .modal-content {
-        background: #111;
-        padding: 30px;
-        border-radius: 10px;
-        width: 90%;
-        max-width: 400px;
-        box-shadow: 0 0 15px #f9532d;
-      }
-
-      .modal-content h2 {
-        margin-bottom: 20px;
-        color: #f9532d;
-        text-align: center;
-      }
-
-      .modal-content label {
-        display: block;
-        margin-bottom: 6px;
-        font-weight: 600;
-      }
-
-      .modal-content input, 
-      .modal-content textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border-radius: 6px;
-        border: none;
-        font-size: 1rem;
-      }
-
-      .modal-content button {
-        background: #f9532d;
-        border: none;
-        padding: 12px;
-        width: 100%;
-        border-radius: 22px;
-        font-weight: 700;
-        color: #000;
-        cursor: pointer;
-        transition: background 0.3s ease;
-      }
-
-      .modal-content button:hover {
-        background: #ff6f00;
-      }
-
-      /* Responsive */
-      @media (max-width: 600px) {
-        .navbar {
-          flex-direction: column;
-          height: auto;
-          gap: 10px;
-          padding: 15px 0;
-        }
-        .menu {
-          gap: 20px;
-          flex-wrap: wrap;
-          justify-content: center;
-        }
-        .logo {
-          font-size: 2.5rem;
-        }
-        .text1 {
-          font-size: 3rem;
-          margin-top: 40px;
-        }
-        .btn1 {
-          padding: 10px 30px;
-          font-size: 1rem;
-        }
-      }
     </style>
   </head>
-
   <body>
     <!-- 3D Spline Background -->
-    <spline-viewer
-      class="background"
+    <spline-viewer 
+      class="background" 
       id="splineViewer"
-      url="https://prod.spline.design/PSAsA15IGvZuiyYa/scene.splinecode"
-    ></spline-viewer>
+      url="https://prod.spline.design/PSAsA15IGvZuiyYa/scene.splinecode">
+    </spline-viewer>
 
     <!-- Navbar -->
     <nav class="navbar">
       <h1 class="logo">Phoenix Tech</h1>
       <ul class="menu">
-        <li><a href="#home" tabindex="1">Home</a></li>
-        <li><a href="#app" tabindex="2">App</a></li>
-        <li><a href="#work" tabindex="3">Work</a></li>
-        <li><a href="chatgpt.html" tabindex="4">Chat GPT</a></li>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">App</a></li>
+        <li><a href="#">Work</a></li>
+        <li><a href="chatgpt.html">Chat GPT</a></li>
       </ul>
-      <button class="btn1" id="connectBtn" tabindex="5">Connect</button>
+      <button class="btn1">Connect</button>
     </nav>
 
     <!-- Main Area -->
-    <main class="mainarea" id="home">
+    <main class="mainarea">
       <h1 class="text1">Subscribe to Phoenix Tech</h1>
     </main>
 
-    <!-- Placeholder sections for scrolling -->
-    <section id="app" style="height: 500px; padding: 40px; color: white;">
-      <h2>App Section</h2>
-      <p>Details about the app go here.</p>
-    </section>
-    <section id="work" style="height: 500px; padding: 40px; color: white;">
-      <h2>Work Section</h2>
-      <p>Details about your work/projects go here.</p>
-    </section>
-
-    <!-- Contact Modal -->
-    <div class="modal" id="contactModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modal-content">
-        <h2 id="modalTitle">Contact Phoenix Tech</h2>
-        <form id="contactForm">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required autocomplete="name" />
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required autocomplete="email" />
-          <label for="message">Message</label>
-          <textarea id="message" name="message" rows="4" required></textarea>
-          <button type="submit">Send</button>
-        </form>
-      </div>
-    </div>
-
-    <!-- JS to handle Spline loading and UI -->
     <script>
       const viewer = document.querySelector('#splineViewer');
       viewer.addEventListener('load', () => {
-        console.log('Spline scene loaded!');
-      });
-
-      // Smooth scroll for internal links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', e => {
-          e.preventDefault();
-          const target = document.querySelector(anchor.getAttribute('href'));
-          if(target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
-        });
-      });
-
-      // Modal open/close logic
-      const connectBtn = document.getElementById('connectBtn');
-      const modal = document.getElementById('contactModal');
-      const form = document.getElementById('contactForm');
-
-      connectBtn.addEventListener('click', () => {
-        modal.classList.add('active');
-      });
-
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          modal.classList.remove('active');
-        }
-      });
-
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        alert('Thank you for your message, ' + form.name.value + '!');
-        form.reset();
-        modal.classList.remove('active');
+        console.log('Spline loaded!');
       });
     </script>
   </body>
